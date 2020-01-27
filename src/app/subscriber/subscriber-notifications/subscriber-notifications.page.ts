@@ -14,6 +14,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class SubscriberNotificationsPage implements OnInit {
   subscriber: Subscriber;
+  melding: any;
   meldingen: Melding[] = [
     {
       command: 'MESSAGE',
@@ -22,31 +23,42 @@ export class SubscriberNotificationsPage implements OnInit {
   ];
 
   constructor(
+
     private activatedRoute: ActivatedRoute,
     private subscriberService: SubscriberService,
     private alertControl: AlertController,
     private router: Router) {
 
-    const ws = new WebSocket('ws://10.0.2.2:15674/ws');
-    const client = Stomp.over(ws);
+    const autoConnect = () =>{
+      const ws = new WebSocket('ws://localhost:15674/ws');
+      const client = Stomp.over(ws);
+      client.heartbeat.outgoing = 0;
+      client.heartbeat.incoming = 0; 
+      client.reconnect_delay = 5000;    
+  
+      const self = this;
+  
+      const onConnect = () => {
+        console.log('connected');
+        client.subscribe('/queue/hello', (message) => {
+          console.log(message);
+          self.meldingen.push(message);
+          // console.log(self.meldingen);
+          self.melding = message;
 
-    const self = this;
+        },{ack: 'client'});
+      };
+      const onError = () => {
+        console.log('error');
+        autoConnect()
+      };
+  
+      client.connect('guest', 'guest', onConnect, onError, '/');
+    }
 
-    const onConnect = () => {
-      console.log('connected');
-      client.subscribe('/queue/hello', (message) => {
-        console.log(message);
-        self.meldingen.push(message);
-        // console.log(self.meldingen);
-      });
-    };
-    const onError = () => {
-      console.log('error');
-    };
+    autoConnect()
 
-    client.connect('guest', 'guest', onConnect, onError, '/');
-
-  }
+    }
 
   confirmMelding() {
     this.alertControl.create({
@@ -59,7 +71,8 @@ export class SubscriberNotificationsPage implements OnInit {
       {
         text: 'Confirm',
         handler: () => {
-          this.router.navigate(['/subscriber']);
+          //this.router.navigate(['/subscriber']);
+          this.melding.ack()
         }
       }
       ]
