@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">OmetaAngular</string>
+    <string name="title_activity_main">OmetaAngular</string>
+    <string name="package_name">be.eware.ionicAngular</string>
+    <string name="custom_url_scheme">be.eware.ionicAngular</string>
+</resources>

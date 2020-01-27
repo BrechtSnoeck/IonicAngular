@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Subscribers!</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="dark">
+  <ion-list color="dark" no-padding margin='1'>
+    <ion-item  *ngFor="let subscriber of subscribers" [routerLink]="['./', subscriber.id]">
+      <ion-label>
+        {{subscriber.name}}
+      </ion-label>
+      <ion-icon name="{{subscriber.icon}}" size="large" slot="end"></ion-icon>
+    </ion-item>
+  </ion-list  >
+</ion-content>
