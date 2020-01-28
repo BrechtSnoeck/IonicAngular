@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, Events } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+
+import { Network } from '@ionic-native/network/ngx';
+import { NetworkProvider } from '../app/network-provider';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +14,10 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 })
 export class AppComponent {
   constructor(
-    private platform: Platform,
+    public platform: Platform,
+    public events: Events,
+    public network: Network,
+    public networkProvider: NetworkProvider,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar
   ) {
@@ -23,6 +29,21 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      this.networkProvider.initializeNetworkEvents();
+
+	       		// Offline event
+			    this.events.subscribe('network:offline', () => {
+              alert('network:offline ==> '+this.network.type);    
+              console.log("Geen WIFI");  
+			    });
+
+			    // Online event
+			    this.events.subscribe('network:online', () => {
+              alert('network:online ==> '+this.network.type); 
+              console.log("Wel WIFI");    
+          }); 
+          
     });
   }
 }
