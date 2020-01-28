@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Stomp } from 'src/stomp.js';
 
-import { Melding } from './melding.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SubscriberService } from '../subscriber.service';
 import { Subscriber } from '../subscriber.model';
@@ -14,13 +13,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class SubscriberNotificationsPage implements OnInit {
   subscriber: Subscriber;
-  melding: any;
-  meldingen: Melding[] = [
-    {
-      command: 'MESSAGE',
-      body: 'test'
-    }
-  ];
+  meldingen: any[] = [];
 
   constructor(
 
@@ -29,50 +22,52 @@ export class SubscriberNotificationsPage implements OnInit {
     private alertControl: AlertController,
     private router: Router) {
 
-    const autoConnect = () =>{
-      const ws = new WebSocket('ws://localhost:15674/ws');
+    const autoConnect = () => {
+
+      const ws = new WebSocket('ws://192.168.1.2:15674/ws');
       const client = Stomp.over(ws);
       client.heartbeat.outgoing = 0;
-      client.heartbeat.incoming = 0; 
-      client.reconnect_delay = 5000;    
-  
+      client.heartbeat.incoming = 0;
+      client.reconnect_delay = 5000;
+
       const self = this;
-  
+
       const onConnect = () => {
         console.log('connected');
         client.subscribe('/queue/hello', (message) => {
-          console.log(message);
           self.meldingen.push(message);
-          // console.log(self.meldingen);
-          self.melding = message;
-
-        },{ack: 'client'});
+          console.log(self.meldingen);
+        }, {ack: 'client-individual'});
       };
+
       const onError = () => {
         console.log('error');
-        autoConnect()
+        self.meldingen.splice(0, self.meldingen.length);
+        autoConnect();
       };
-  
-      client.connect('guest', 'guest', onConnect, onError, '/');
+
+      client.connect('team2', 'team2', onConnect, onError, 'team2vhost');
+    };
+
+    autoConnect();
+
     }
 
-    autoConnect()
-
-    }
-
-  confirmMelding() {
+  confirmMelding(index: number) {
     this.alertControl.create({
       header: 'Melding',
       message: 'Wil je deze melding bevestigen?',
       buttons: [{
-        text: 'Cancel',
+        text: 'Annuleren',
         role: 'cancel'
       },
       {
-        text: 'Confirm',
+        text: 'Bevestig',
         handler: () => {
-          //this.router.navigate(['/subscriber']);
-          this.melding.ack()
+          console.log(this.meldingen[index].headers['message-id']);
+          this.meldingen[index].ack();
+          this.meldingen.splice(index, 1);
+          console.log(index);
         }
       }
       ]

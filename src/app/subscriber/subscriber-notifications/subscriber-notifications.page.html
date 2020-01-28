@@ -16,11 +16,11 @@
     <ion-row>
       <ion-col>
         <ion-list color="dark" no-padding>
-          <ion-item *ngFor="let melding of meldingen" (click)="confirmMelding()">
+          <ion-item *ngFor="let melding of meldingen; let i = index" (click)="confirmMelding(i)">
             <ion-label>
               {{melding.body}}
             </ion-label>
-            <ion-icon name="checkbox" size='large' slot='end'></ion-icon>
+            <ion-icon name="checkmark-circle" size="large" slot="end"></ion-icon>
           </ion-item>
         </ion-list>
       </ion-col>
