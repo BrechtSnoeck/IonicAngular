@@ -4,14 +4,12 @@
       <ion-back-button defaultHref="/subscriber"></ion-back-button>
     </ion-buttons>
     <ion-title>{{subscriber.name}}-notifications</ion-title>
-    <ion-icon name="{{subscriber.icon}}" size="large" slot="end"></ion-icon>
-    <ion-buttons slot='primary'>
-      <ion-button><ion-icon name></ion-icon></ion-button>
-    </ion-buttons>
+    <ion-icon *ngIf="connectivity" name="{{subscriber.icon}}" size="large" slot="end"></ion-icon>
+    <ion-spinner *ngIf="!connectivity" name="bubbles" slot='end' color="light"></ion-spinner>
   </ion-toolbar>
 </ion-header>
 
-<ion-content color='dark'>
+<ion-content *ngIf="connectivity" color='dark'>
   <ion-grid padding='5'>
     <ion-row>
       <ion-col>
@@ -24,6 +22,10 @@
           </ion-item>
         </ion-list>
       </ion-col>
+      <ion-spinner name="bubbles"></ion-spinner>
     </ion-row>
   </ion-grid>
+</ion-content>
+<ion-content *ngIf="!connectivity" color="dark">
+  <h1 text-center>Geen connectie met de servicebus!</h1>
 </ion-content>

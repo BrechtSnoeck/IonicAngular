@@ -13,7 +13,9 @@ import { AlertController } from '@ionic/angular';
 })
 export class SubscriberNotificationsPage implements OnInit {
   subscriber: Subscriber;
+  connectivity: boolean;
   meldingen: any[] = [];
+  client: any;
 
   constructor(
 
@@ -25,32 +27,39 @@ export class SubscriberNotificationsPage implements OnInit {
     const autoConnect = () => {
 
       const ws = new WebSocket('ws://192.168.1.2:15674/ws');
-      const client = Stomp.over(ws);
-      client.heartbeat.outgoing = 0;
-      client.heartbeat.incoming = 0;
-      client.reconnect_delay = 5000;
+      this.client = Stomp.over(ws);
+      this.client.heartbeat.outgoing = 0;
+      this.client.heartbeat.incoming = 0;
+      this.client.reconnect_delay = 5000;
 
       const self = this;
 
       const onConnect = () => {
         console.log('connected');
-        client.subscribe('/queue/hello', (message) => {
+        self.connectivity = true;
+        this.client.subscribe('/queue/hello', (message) => {
+          console.log(message);
           self.meldingen.push(message);
-          console.log(self.meldingen);
         }, {ack: 'client-individual'});
       };
 
       const onError = () => {
         console.log('error');
         self.meldingen.splice(0, self.meldingen.length);
+        self.connectivity = false;
         autoConnect();
       };
 
-      client.connect('team2', 'team2', onConnect, onError, 'team2vhost');
+      this.client.connect('team2', 'team2', onConnect, onError, 'team2vhost');
     };
 
     autoConnect();
 
+    }
+
+    ionViewDidLeave() {
+      console.log('ist weg?');
+      this.client.disconnect();
     }
 
   confirmMelding(index: number) {

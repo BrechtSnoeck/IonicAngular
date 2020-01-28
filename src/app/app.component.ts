@@ -32,18 +32,18 @@ export class AppComponent {
 
       this.networkProvider.initializeNetworkEvents();
 
-	       		// Offline event
-			    this.events.subscribe('network:offline', () => {
-              alert('network:offline ==> '+this.network.type);    
-              console.log("Geen WIFI");  
-			    });
+      // Offline event
+      this.events.subscribe('network:offline', () => {
+        alert('network:offline ==> ' + this.network.type);
+        console.log('Geen WIFI');
+      });
 
-			    // Online event
-			    this.events.subscribe('network:online', () => {
-              alert('network:online ==> '+this.network.type); 
-              console.log("Wel WIFI");    
-          }); 
-          
+      // Online event
+      this.events.subscribe('network:online', () => {
+        alert('network:online ==> ' + this.network.type);
+        console.log('Wel WIFI');
+      });
+
     });
   }
 }
