@@ -8,12 +8,12 @@ export class SubscriberService {
   private subscribers: Subscriber[] = [
     {
       id: 'elek',
-      name: 'Elektrician',
+      name: 'Elektricien',
       icon: 'flash'
     },
     {
       id: 'mech',
-      name: 'Mechanic',
+      name: 'Mechanieker',
       icon: 'build'
     }
   ];

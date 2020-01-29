@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SubscriberService } from '../subscriber.service';
 import { Subscriber } from '../subscriber.model';
 import { AlertController } from '@ionic/angular';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 @Component({
   selector: 'app-subscriber-notifications',
@@ -19,6 +20,7 @@ export class SubscriberNotificationsPage implements OnInit {
 
   constructor(
 
+    private localNotifications: LocalNotifications,
     private activatedRoute: ActivatedRoute,
     private subscriberService: SubscriberService,
     private alertControl: AlertController,
@@ -26,7 +28,7 @@ export class SubscriberNotificationsPage implements OnInit {
 
     const autoConnect = () => {
 
-      const ws = new WebSocket('ws://192.168.1.2:15674/ws');
+      const ws = new WebSocket('ws://81.82.52.102:15674/ws');
       this.client = Stomp.over(ws);
       this.client.heartbeat.outgoing = 0;
       this.client.heartbeat.incoming = 0;
@@ -37,7 +39,8 @@ export class SubscriberNotificationsPage implements OnInit {
       const onConnect = () => {
         console.log('connected');
         self.connectivity = true;
-        this.client.subscribe('/queue/hello', (message) => {
+        const queue: string = '/queue/' + self.subscriber.id;
+        this.client.subscribe(queue, (message) => {
           console.log(message);
           self.meldingen.push(message);
         }, {ack: 'client-individual'});
@@ -73,10 +76,14 @@ export class SubscriberNotificationsPage implements OnInit {
       {
         text: 'Bevestig',
         handler: () => {
-          console.log(this.meldingen[index].headers['message-id']);
-          this.meldingen[index].ack();
-          this.meldingen.splice(index, 1);
-          console.log(index);
+          // console.log(this.meldingen[index].headers['message-id']);
+          // this.meldingen[index].ack();
+          // this.meldingen.splice(index, 1);
+          // console.log(index);
+          this.localNotifications.schedule({
+            id: 1,
+            text: 'Single ILocalNotification'
+          });
         }
       }
       ]
