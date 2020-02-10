@@ -13,6 +13,8 @@ import { Network } from '@ionic-native/network/ngx';
 
 import { LocalNotifications} from '@ionic-native/local-notifications/ngx'
 
+import { BackgroundMode } from '@ionic-native/background-mode/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -21,6 +23,7 @@ import { LocalNotifications} from '@ionic-native/local-notifications/ngx'
     Network,
     StatusBar,
     LocalNotifications,
+    BackgroundMode,
     SplashScreen,
     LocalNotifications,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

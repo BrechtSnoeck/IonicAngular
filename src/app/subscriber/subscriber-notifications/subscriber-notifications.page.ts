@@ -76,14 +76,11 @@ export class SubscriberNotificationsPage implements OnInit {
       {
         text: 'Bevestig',
         handler: () => {
-          // console.log(this.meldingen[index].headers['message-id']);
-          // this.meldingen[index].ack();
-          // this.meldingen.splice(index, 1);
-          // console.log(index);
-          this.localNotifications.schedule({
-            id: 1,
-            text: 'Single ILocalNotification'
-          });
+          console.log(this.meldingen[index].headers['message-id']);
+          this.meldingen[index].ack();
+          this.meldingen.splice(index, 1);
+          console.log(index);
+
         }
       }
       ]
