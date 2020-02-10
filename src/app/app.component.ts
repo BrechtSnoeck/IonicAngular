@@ -53,8 +53,7 @@ export class AppComponent {
         this.localNotifications.schedule({
           id: 1,
           title: 'Netwerk',
-          text: 'Je bent de verbinding verloren met het netwerk!',
-          data: { secret: 'secret' }
+          text: 'Je bent de verbinding verloren met het netwerk!'
         });
         //alert('network:offline ==> '+this.network.type);    
         console.log("Geen WIFI");
@@ -68,8 +67,7 @@ export class AppComponent {
         this.localNotifications.schedule({
           id: 1,
           title: 'Netwerk',
-          text: 'Je bent nu verbonden met ' + this.network.type + '!',
-          data: { secret: 'secret' }
+          text: 'Je bent nu verbonden met ' + this.network.type + '!'
         });
         //alert('network:online ==> '+this.network.type); 
         console.log("Wel WIFI");
@@ -87,8 +85,7 @@ export class AppComponent {
         this.localNotifications.schedule({
           id: 1,
           title: 'Netwerk',
-          text: 'Je bent de verbinding verloren met het netwerk!',
-          data: { secret: 'secret' }
+          text: 'Je bent de verbinding verloren met het netwerk!'
         });
         //alert('network:offline ==> '+this.network.type);    
         console.log("Geen WIFI");
