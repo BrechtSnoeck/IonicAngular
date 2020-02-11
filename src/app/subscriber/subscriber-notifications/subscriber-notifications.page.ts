@@ -6,6 +6,7 @@ import { SubscriberService } from '../subscriber.service';
 import { Subscriber } from '../subscriber.model';
 import { AlertController } from '@ionic/angular';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 
 @Component({
   selector: 'app-subscriber-notifications',
@@ -19,7 +20,7 @@ export class SubscriberNotificationsPage implements OnInit {
   client: any;
 
   constructor(
-
+    private backgroundMode: BackgroundMode,
     private localNotifications: LocalNotifications,
     private activatedRoute: ActivatedRoute,
     private subscriberService: SubscriberService,
@@ -27,7 +28,6 @@ export class SubscriberNotificationsPage implements OnInit {
     private router: Router) {
 
     const autoConnect = () => {
-
       const ws = new WebSocket('ws://81.82.52.102:15674/ws');
       this.client = Stomp.over(ws);
       this.client.heartbeat.outgoing = 0;
@@ -42,6 +42,11 @@ export class SubscriberNotificationsPage implements OnInit {
         const queue: string = '/queue/' + self.subscriber.id;
         this.client.subscribe(queue, (message) => {
           console.log(message);
+          this.localNotifications.schedule({
+            id: 1,
+            title: 'Servicebus',
+            text: 'Je hebt een melding ontvangen:' + message.body
+          });
           self.meldingen.push(message);
         }, {ack: 'client-individual'});
       };
@@ -50,6 +55,7 @@ export class SubscriberNotificationsPage implements OnInit {
         console.log('error');
         self.meldingen.splice(0, self.meldingen.length);
         self.connectivity = false;
+        self.client.disconnect();
         autoConnect();
       };
 
@@ -63,6 +69,7 @@ export class SubscriberNotificationsPage implements OnInit {
     ionViewDidLeave() {
       console.log('ist weg?');
       this.client.disconnect();
+      localStorage.removeItem('id');
     }
 
   confirmMelding(index: number) {
