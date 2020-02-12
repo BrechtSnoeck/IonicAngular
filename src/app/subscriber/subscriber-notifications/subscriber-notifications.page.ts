@@ -41,13 +41,15 @@ export class SubscriberNotificationsPage implements OnInit {
         self.connectivity = true;
         const queue: string = '/queue/' + self.subscriber.id;
         this.client.subscribe(queue, (message) => {
-          console.log(message);
+          const content = message.body.split(';');
+          const melding: string = content[1] + ' ontving waarde: ' +  content[0];
+          console.log(melding);
           this.localNotifications.schedule({
             id: 1,
             title: 'Servicebus',
             text: 'Je hebt een melding ontvangen:' + message.body
           });
-          self.meldingen.push(message);
+          self.meldingen.push(melding);
         }, {ack: 'client-individual'});
       };
 

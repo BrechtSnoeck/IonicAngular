@@ -38,7 +38,7 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.backgroundMode.disableBatteryOptimizations();
-      this.backgroundMode.disableWebViewOptimizations();
+      // this.backgroundMode.disableWebViewOptimizations();
       this.backgroundMode.enable();
       console.log('GESTART');
       this.networkProvider.initializeNetworkEvents();
