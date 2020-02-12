@@ -1,30 +1,39 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar color="secondary">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/subscriber"></ion-back-button>
     </ion-buttons>
     <ion-title>{{subscriber.name}}-notifications</ion-title>
-    <ion-icon *ngIf="connectivity" name="{{subscriber.icon}}" size="large" slot="end"></ion-icon>
-    <ion-spinner *ngIf="!connectivity" name="bubbles" slot='end' color="light"></ion-spinner>
+    <ion-icon *ngIf="connectivity" name="{{subscriber.icon}}" size="large" slot="end" margin="20px"></ion-icon>
+    <ion-spinner *ngIf="!connectivity" name="bubbles" slot='end' color="light" margin="20px"></ion-spinner>
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="connectivity" color='dark'>
-  <ion-grid padding='5'>
+<ion-content *ngIf="connectivity">
+  <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-list color="dark" no-padding>
-          <ion-item *ngFor="let melding of meldingen; let i = index" (click)="confirmMelding(i)">
+        <ion-list color="white" no-padding>
+          <ion-item-sliding #sliding *ngFor="let melding of meldingen; let i = index">
+          <ion-item >
             <ion-label>
               {{melding.body}}
             </ion-label>
-            <ion-icon name="checkmark-circle" size="large" slot="end"></ion-icon>
           </ion-item>
+          <ion-item-options side="end">
+            <button ion-button style="background-color: #0DD1E9; color: white;" (click)="confirmMelding(i)">
+              <ion-icon name="checkmark-circle" size="large" slot="end"></ion-icon>
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
         </ion-list>
       </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>
-<ion-content *ngIf="!connectivity" color="dark">
-  <h1 text-center>Geen connectie met de servicebus!</h1>
+<ion-content *ngIf="!connectivity" style="background-color: #E5E9EC;" color="#E5E9EC">
+  <img src="../../../assets/noconnection.png" style="display: block; margin-left: auto; margin-right: auto; width: 40%; margin-top: 35%;" alt="noconnection"/>
+  <h1 text-center>Oh nee!</h1>
+  <h4 text-center style="font-family: 'Roboto Condensed', sans-serif;">Geen internet gevonden.<br>Controleer uw verbinding.</h4>
 </ion-content>
+

@@ -66,27 +66,10 @@ export class SubscriberNotificationsPage implements OnInit {
     }
 
   confirmMelding(index: number) {
-    this.alertControl.create({
-      header: 'Melding',
-      message: 'Wil je deze melding bevestigen?',
-      buttons: [{
-        text: 'Annuleren',
-        role: 'cancel'
-      },
-      {
-        text: 'Bevestig',
-        handler: () => {
           console.log(this.meldingen[index].headers['message-id']);
           this.meldingen[index].ack();
           this.meldingen.splice(index, 1);
           console.log(index);
-
-        }
-      }
-      ]
-    }).then(alertEl => {
-      alertEl.present();
-    });
   }
 
   ngOnInit() {
