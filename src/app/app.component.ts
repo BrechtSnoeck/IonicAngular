@@ -31,16 +31,14 @@ export class AppComponent {
     private statusBar: StatusBar
   ) {
     this.initializeApp();
-
   }
-
-  
 
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-
+      this.backgroundMode.disableBatteryOptimizations();
+      this.backgroundMode.disableWebViewOptimizations();
       this.backgroundMode.enable();
       console.log('GESTART');
       this.networkProvider.initializeNetworkEvents();
@@ -55,8 +53,8 @@ export class AppComponent {
           title: 'Netwerk',
           text: 'Je bent de verbinding verloren met het netwerk!'
         });
-        //alert('network:offline ==> '+this.network.type);    
-        console.log("Geen WIFI");
+        // alert('network:offline ==> '+this.network.type);
+        console.log('Geen WIFI');
       });
 
       // Online event
@@ -69,42 +67,42 @@ export class AppComponent {
           title: 'Netwerk',
           text: 'Je bent nu verbonden met ' + this.network.type + '!'
         });
-        //alert('network:online ==> '+this.network.type); 
+        // alert('network:online ==> '+this.network.type);
         console.log("Wel WIFI");
       });
 
-      this.backgroundMode.on("activate").subscribe(()=>{
+      this.backgroundMode.on("activate").subscribe(() => {
         console.log('BACKGROUND');
         console.log(this.backgroundMode.isActive());
         console.log(this.backgroundMode.isEnabled());
         // Offline event
-      this.events.subscribe('network:offline', () => {
-        console.log('STAATAF');
-        console.log(this.backgroundMode.isActive());
-        console.log(this.backgroundMode.isEnabled());
-        this.localNotifications.schedule({
-          id: 1,
-          title: 'Netwerk',
-          text: 'Je bent de verbinding verloren met het netwerk!'
+        this.events.subscribe('network:offline', () => {
+          console.log('STAATAF');
+          console.log(this.backgroundMode.isActive());
+          console.log(this.backgroundMode.isEnabled());
+          this.localNotifications.schedule({
+            id: 1,
+            title: 'Netwerk',
+            text: 'Je bent de verbinding verloren met het netwerk!'
+          });
+          // alert('network:offline ==> '+this.network.type);
+          console.log("Geen WIFI");
         });
-        //alert('network:offline ==> '+this.network.type);    
-        console.log("Geen WIFI");
-      });
 
-      // Online event
-      this.events.subscribe('network:online', () => {
-        console.log('STAATOP');
-        console.log(this.backgroundMode.isActive());
-        console.log(this.backgroundMode.isEnabled());
-        this.localNotifications.schedule({
-          id: 1,
-          title: 'Netwerk',
-          text: 'Je bent nu verbonden met ' + this.network.type + '!',
-          data: { secret: 'secret' }
+        // Online event
+        this.events.subscribe('network:online', () => {
+          console.log('STAATOP');
+          console.log(this.backgroundMode.isActive());
+          console.log(this.backgroundMode.isEnabled());
+          this.localNotifications.schedule({
+            id: 1,
+            title: 'Netwerk',
+            text: 'Je bent nu verbonden met ' + this.network.type + '!',
+            data: { secret: 'secret' }
+          });
+          // alert('network:online ==> '+this.network.type); 
+          console.log("Wel WIFI");
         });
-        //alert('network:online ==> '+this.network.type); 
-        console.log("Wel WIFI");
-      });
       });
     });
   }

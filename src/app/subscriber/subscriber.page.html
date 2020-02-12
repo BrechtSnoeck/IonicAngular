@@ -9,7 +9,7 @@
 
 <ion-content color="white">
   <ion-list color="white">
-    <ion-item  *ngFor="let subscriber of subscribers" [routerLink]="['./', subscriber.id]">
+    <ion-item  *ngFor="let subscriber of subscribers" [routerLink]="['./', subscriber.id]" (click)="setStorage(subscriber.id)>
       <ion-label>
         {{subscriber.name}}
       </ion-label>
