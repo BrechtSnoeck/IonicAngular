@@ -17,6 +17,7 @@ export class SubscriberNotificationsPage implements OnInit {
   subscriber: Subscriber;
   connectivity: boolean;
   meldingen: any[] = [];
+  boodschappen: string[] = [];
   client: any;
 
   constructor(
@@ -42,20 +43,22 @@ export class SubscriberNotificationsPage implements OnInit {
         const queue: string = '/queue/' + self.subscriber.id;
         this.client.subscribe(queue, (message) => {
           const content = message.body.split(';');
-          const melding: string = content[1] + ' ontving waarde: ' +  content[0];
-          console.log(melding);
+          const boodschap: string = content[1] + ' ontving waarde: ' +  content[0];
+          console.log(message);
           this.localNotifications.schedule({
             id: 1,
             title: 'Servicebus',
             text: 'Je hebt een melding ontvangen:' + message.body
           });
-          self.meldingen.push(melding);
+          self.boodschappen.push(boodschap);
+          self.meldingen.push(message);
         }, {ack: 'client-individual'});
       };
 
       const onError = () => {
         console.log('error');
         self.meldingen.splice(0, self.meldingen.length);
+        self.boodschappen.splice(0, self.meldingen.length);
         self.connectivity = false;
         self.client.disconnect();
         autoConnect();
@@ -75,10 +78,11 @@ export class SubscriberNotificationsPage implements OnInit {
     }
 
   confirmMelding(index: number) {
-          console.log(this.meldingen[index].headers['message-id']);
+          // console.log(this.meldingen[index].headers['message-id']);
           this.meldingen[index].ack();
           this.meldingen.splice(index, 1);
-          console.log(index);
+          this.boodschappen.splice(index, 1);
+          // console.log(index);
   }
 
   ngOnInit() {
