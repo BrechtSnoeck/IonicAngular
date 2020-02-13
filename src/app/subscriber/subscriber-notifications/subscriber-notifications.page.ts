@@ -48,7 +48,7 @@ export class SubscriberNotificationsPage implements OnInit {
           this.localNotifications.schedule({
             id: 1,
             title: 'Servicebus',
-            text: 'Je hebt een melding ontvangen:' + message.body
+            text: 'Je hebt een melding ontvangen:' + boodschap
           });
           self.boodschappen.push(boodschap);
           self.meldingen.push(message);
@@ -58,7 +58,7 @@ export class SubscriberNotificationsPage implements OnInit {
       const onError = () => {
         console.log('error');
         self.meldingen.splice(0, self.meldingen.length);
-        self.boodschappen.splice(0, self.meldingen.length);
+        self.boodschappen.splice(0, self.boodschappen.length);
         self.connectivity = false;
         self.client.disconnect();
         autoConnect();
