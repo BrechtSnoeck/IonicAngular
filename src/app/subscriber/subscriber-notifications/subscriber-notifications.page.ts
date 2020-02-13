@@ -72,9 +72,9 @@ export class SubscriberNotificationsPage implements OnInit {
     }
 
     ionViewDidLeave() {
-      console.log('ist weg?');
-      this.client.disconnect();
+      // console.log('ist weg?');
       localStorage.removeItem('id');
+      this.client.disconnect();
     }
 
   confirmMelding(index: number) {
