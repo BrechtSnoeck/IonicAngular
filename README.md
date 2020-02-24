@@ -1,40 +1,40 @@
-# Application challenge: MatchIT
+# Project 4.0: C2 E-ware
 
 ## Project description
 
-The assignment application challenge 2019 organized by the Grasshoppers Academy. Is a challenge made for students in their last year of the IT-Factory. The assignment, “The Matchmaking System”, is platform designed for students, interns or any other person who does IT in his spare time. The goal is to bring these people in contact with companies that have “not so urgent” assignments, but they still want to have looked at.
+In deze repo kan je de sourcecode terugvinden van onze app die we maakten voor project 4.0. Project 4.0 is een groepsproject dat in het laatste jaar van de ITFactory plaastvind. De teams bestaan uit studenten van alle afstudeerrichtingen. Samen gaan de teams voor een klant een groot project maken. Lees gerust verder over hoe ons team dit aangepakt heeft.
 
-A couple examples would be: Designs, Websites, Applications, Data modeling, …
+## Team: E-ware (C2)
 
-## Team: CodeMatchers (Athene)
-
-This assignment wasn’t made for one student to complete, but for a team of students. Our team the “CodeMatchers” consists of 4 students. together we build our application "MatchIT".
-  * Bosz Srisan (BoszS)
-  * Brecht Snoeck (BrechtSnoeck)
-  * Maarten Schroons (maartenschroons)
-  * Stijn Haerkens (stijnhhh)
+Deze opdracht is niet gemaakt door 1 student, maar door een team van studenten. Ons team, E-ware bestaat uit 5 leden.
+  * Dries Janssen
+  * Brecht Snoeck
+  * Jeroen Laenen
+  * Arne Van den Eynden
+  * Sebastiaan Bergmans
 
 ## What's in this Repo?
 
-In this repository you can find the frontend that we made for the application challenge. The application challenge is closely linked to our course Angular, so naturally we had to pick Angular to develop our frontend.  The frontend isn’t hosted anywhere, so you’ll have to clone into this repo to get started!  --> more information ahead! 
+In deze repository kan je de source code vinden van onze Ionic Angular applicatie. Om deze applicatie te openen zal je deze repo moeten clonen. Meer informatie kan je hieronder terugvinden.
 
 ## Installation
 
-Before you clone/download this repo, you might want to make sure that your development environment is in order. 
+Voordat u deze repo kloon / downloadt, wilt u misschien controleren of uw ontwikkelomgeving in orde is.
 
-* First you’ll need an IDE. Personally we like using Visual Studio Code. But other IDEs like Webstorm, Angular IDE, Atom editor, … are good choices. If u want to download VSC, click the following link: https://code.visualstudio.com/
+* Eerst heb je een IDE nodig. Persoonlijk gebruiken we Visual Studio Code graag. Maar andere IDE's zoals Webstorm, Angular IDE, Atom-editor, ... zijn goede keuzes. Als u VSC wilt downloaden, klikt u op de volgende link: https://code.visualstudio.com/
 
-* Second of all you will need Node.js (version 10.9.0 or later). You can download Node.js using the following link https://nodejs.org/en/. 
-  * Once installed you can check your current version with: run ‘node -v’ in a terminal/console. 
-  * Npm package manager is installed together with Node.js. You can check the current version with: run ‘npm -v’ in terminal/console.
+* Ten tweede heb je Node.js nodig (versie 10.9.0 of hoger). U kunt Node.js downloaden via de volgende link https://nodejs.org/en/. 
+  * Na installatie kunt u uw huidige versie controleren met: voer ‘node -v’ uit in een terminal / console. 
+  * Npm package manager wordt geïnstalleerd samen met Node.js. U kunt de huidige versie controleren met: voer 'npm -v' uit in terminal / console.
 
-* Lastly this project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.1. In order to make sure that you can deploy the project, make sure to run the following command to install the angular cli:
-  * “npm install -g @angular/cli@8.1.1” in a terminal/console.
+* Ten slotte werd dit project gegenereerd met de [Angular CLI] (https://github.com/angular/angular-cli) versie 8.1.1. Om er zeker van te zijn dat u het project kunt deployen, moet u de volgende opdracht uitvoeren om de Angular cli te installeren:
+
+  * “npm install -g @angular/cli@8.1.1” in een terminal/console.
 
 ## Development
 
-In order to deploy the application, you can use the terminal inside your IDE.
+Om de applicatie te implementeren, kunt u de terminal in uw IDE gebruiken.
 
  <img alt="Launcher profile" src="img/terminal.png">
  
-Run `ng serve --open` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Voer `ng serve --open` uit voor een dev-server. Navigeer naar `http: // localhost: 4200 /`. De app wordt automatisch opnieuw geladen als u een van de bronbestanden wijzigt.
