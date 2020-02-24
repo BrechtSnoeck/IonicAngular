@@ -17,7 +17,7 @@ Deze opdracht is niet gemaakt door 1 student, maar door een team van studenten. 
 
 In deze repository kan je de source code vinden van onze Ionic Angular applicatie. Om deze applicatie te openen zal je deze repo moeten clonen. Meer informatie kan je hieronder terugvinden.
 
-## Installation
+## Installatie
 
 Voordat u deze repo kloon / downloadt, wilt u misschien controleren of uw ontwikkelomgeving in orde is.
 
